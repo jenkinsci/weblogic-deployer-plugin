@@ -132,11 +132,12 @@ public class WeblogicDeploymentPlugin extends Recorder {
     public WeblogicDeploymentPlugin(List<DeploymentTask> tasks, boolean mustExitOnFailure, List<String> selectedDeploymentStrategyIds, 
     		String deployedProjectsDependencies, boolean isDeployingOnlyWhenUpdates, boolean forceStopOnFirstFailure,
     		String weblogicEnvironmentTargetedName, String deploymentName, 
-    		String deploymentTargets, boolean isLibrary, String builtResourceRegexToDeploy, String baseResourcesGeneratedDirectory) {
+    		String deploymentTargets, boolean isLibrary, String builtResourceRegexToDeploy, String baseResourcesGeneratedDirectory, 
+    		String deploymentPlan) {
         // ATTENTION : Appele au moment de la sauvegarde : On conserve la compatibilite ascendante
 		this.tasks = CollectionUtils.isNotEmpty(tasks) ? tasks : Arrays.asList(new DeploymentTask[]{
 				new DeploymentTask(null, null, weblogicEnvironmentTargetedName, deploymentName, deploymentTargets, isLibrary,
-						builtResourceRegexToDeploy, baseResourcesGeneratedDirectory , null, null, null, null)
+						builtResourceRegexToDeploy, baseResourcesGeneratedDirectory , null, null, null, null, deploymentPlan)
 				});
 		this.mustExitOnFailure = mustExitOnFailure;
         this.selectedDeploymentStrategyIds = selectedDeploymentStrategyIds;

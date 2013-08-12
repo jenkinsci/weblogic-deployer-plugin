@@ -79,6 +79,11 @@ public class DeploymentTask  extends AbstractDescribableImpl<DeploymentTask> imp
 	private String commandLine;
 	
 	/**
+	 * Name of the deployment plan to use when deploying the resource
+	 */
+	private final String deploymentPlan;
+
+	/**
 	 * Invoque lors uniquement lors de la sauvegarde des données
 	 * @param id
 	 * @param taskName
@@ -90,12 +95,13 @@ public class DeploymentTask  extends AbstractDescribableImpl<DeploymentTask> imp
 	 * @param baseResourcesGeneratedDirectory
 	 * @param jdkTool
 	 * @param nestedObject
+	 * @param deploymentPlan
 	 */
 	@DataBoundConstructor
 	public DeploymentTask(String id, String taskName, String weblogicEnvironmentTargetedName, String deploymentName, 
   		String deploymentTargets, boolean isLibrary, String builtResourceRegexToDeploy, String baseResourcesGeneratedDirectory, String jdkName, String jdkHome, 
   		WebLogicStageMode stageMode,
-  		String commandLine) {
+  		String commandLine, String deploymentPlan) {
 		if (id == null) {
 			this.id = RandomStringUtils.randomAlphanumeric(10);
 		} else {
@@ -113,6 +119,7 @@ public class DeploymentTask  extends AbstractDescribableImpl<DeploymentTask> imp
 		}
 		this.stageMode = stageMode;
 		this.commandLine = commandLine;
+      	this.deploymentPlan = deploymentPlan;
 	}
 	
 	
@@ -221,5 +228,10 @@ public class DeploymentTask  extends AbstractDescribableImpl<DeploymentTask> imp
 		return commandLine;
 	}
 	
-	
+	/**
+	 * @return the deploymentPlan
+	 */
+	public String getDeploymentPlan() {
+		return deploymentPlan;
+	}
 }

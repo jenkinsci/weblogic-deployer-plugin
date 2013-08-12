@@ -100,6 +100,11 @@ public class WebLogicDeployer {
         	args.add("-library");
         }
         
+		if (StringUtils.isNotBlank(parameter.getDeploymentPlan())) {
+        	args.add("-plan");
+        	args.add(parameter.getDeploymentPlan());
+        }
+
         return args.toCommandArray();
 	}
 

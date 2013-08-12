@@ -3,6 +3,15 @@
  */
 package org.jenkinsci.plugins.deploy.weblogic.task;
 
+import hudson.Extension;
+import hudson.FilePath;
+import hudson.Launcher;
+import hudson.Proc;
+import hudson.model.BuildListener;
+import hudson.model.AbstractBuild;
+import hudson.model.AbstractProject;
+import hudson.model.JDK;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -10,23 +19,13 @@ import java.io.OutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
-import hudson.Extension;
-import hudson.FilePath;
-import hudson.Launcher;
-import hudson.Proc;
-import hudson.model.AbstractBuild;
-import hudson.model.AbstractProject;
-import hudson.model.BuildListener;
-import hudson.model.JDK;
-
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.plugins.deploy.weblogic.ArtifactSelector;
 import org.jenkinsci.plugins.deploy.weblogic.FreeStyleJobArtifactSelectorImpl;
 import org.jenkinsci.plugins.deploy.weblogic.MavenJobArtifactSelectorImpl;
-import org.jenkinsci.plugins.deploy.weblogic.WeblogicDeploymentPluginLog;
 import org.jenkinsci.plugins.deploy.weblogic.WeblogicDeploymentPlugin.WeblogicDeploymentPluginDescriptor;
+import org.jenkinsci.plugins.deploy.weblogic.WeblogicDeploymentPluginLog;
 import org.jenkinsci.plugins.deploy.weblogic.data.DeploymentTask;
 import org.jenkinsci.plugins.deploy.weblogic.data.DeploymentTaskResult;
 import org.jenkinsci.plugins.deploy.weblogic.data.TransfertConfiguration;
@@ -229,7 +228,7 @@ public class DeploymentTaskServiceImpl implements DeploymentTaskService {
         WebLogicDeployerParameters deployWebLogicDeployerParameters = new WebLogicDeployerParameters(
         		build,launcher,listener, selectedJdk, task.getDeploymentName(), task.getIsLibrary(), task.getDeploymentTargets(),
         		weblogicEnvironmentTargeted, artifactName, sourceFile, WebLogicCommand.DEPLOY, false,
-        		getDescriptor().getJavaOpts(),getDescriptor().getExtraClasspath(), task.getStageMode());
+        		getDescriptor().getJavaOpts(),getDescriptor().getExtraClasspath(), task.getStageMode(), task.getDeploymentPlan());
         String[] deployCommand = WebLogicDeployer.getWebLogicCommandLine(deployWebLogicDeployerParameters);
         listener.getLogger().println("[WeblogicDeploymentPlugin] - DEPLOYING ARTIFACT...");
         deploymentLogOut.write("------------------------------------  ARTIFACT DEPLOYMENT ------------------------------------------------\r\n".getBytes());
@@ -262,7 +261,7 @@ public class DeploymentTaskServiceImpl implements DeploymentTaskService {
 		WebLogicDeployerParameters undeployWebLogicDeployerParameters = new WebLogicDeployerParameters(
 				build, launcher, listener, selectedJdk, task.getDeploymentName(), task.getIsLibrary(), task.getDeploymentTargets(),
 				weblogicEnvironmentTargeted, artifactName, null, WebLogicCommand.UNDEPLOY, true,
-				getDescriptor().getJavaOpts(), getDescriptor().getExtraClasspath(), task.getStageMode());
+				getDescriptor().getJavaOpts(), getDescriptor().getExtraClasspath(), task.getStageMode(), null);
 		String[] undeployCommand = WebLogicDeployer.getWebLogicCommandLine(undeployWebLogicDeployerParameters);
         
         deploymentLogOut.write("------------------------------------  ARTIFACT UNDEPLOYMENT ------------------------------------------------\r\n".getBytes());
@@ -315,7 +314,7 @@ public class DeploymentTaskServiceImpl implements DeploymentTaskService {
 		WebLogicDeployerParameters executionDeployerParameters = new WebLogicDeployerParameters(
 				build, launcher, listener, selectedJdk, task.getDeploymentName(), task.getIsLibrary(), task.getDeploymentTargets(),
 				weblogicEnvironmentTargeted, artifactName, sourceFile, null, true,
-				getDescriptor().getJavaOpts(), getDescriptor().getExtraClasspath(), task.getStageMode());
+				getDescriptor().getJavaOpts(), getDescriptor().getExtraClasspath(), task.getStageMode(), task.getDeploymentPlan());
 		
 		
 		String[] commandLines = StringUtils.split(task.getCommandLine(), WebLogicDeploymentPluginConstantes.WL_DEPLOYMENT_CMD_LINE_SEPARATOR);

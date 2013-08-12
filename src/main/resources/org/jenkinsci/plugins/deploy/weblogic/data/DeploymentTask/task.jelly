@@ -29,6 +29,9 @@
 	<f:entry title="${%DeploymentTargets}" field="deploymentTargets">
 		<f:textbox default="AdminServer" value="${it.deploymentTargets}"/>
 	</f:entry>
+	<f:entry title="${%DeploymentPlan}" field="deploymentPlan">
+		<f:textbox value="${it.deploymentPlan}"/>
+	</f:entry>
 	<f:entry title="${%WeblogicLibrary}" field="isLibrary">
 		<f:checkbox name="isLibrary" checked="${it.isLibrary}" />
 	</f:entry>
@@ -63,5 +66,4 @@
 			</f:entry>
 		</f:entry>
     </f:advanced>
-  
 </j:jelly>

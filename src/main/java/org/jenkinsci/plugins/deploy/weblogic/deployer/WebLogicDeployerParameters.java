@@ -49,6 +49,7 @@ public class WebLogicDeployerParameters {
 	
 	private WebLogicStageMode stageMode;
 	
+	private String deploymentPlan;
 	public WebLogicDeployerParameters(){}
 	
 	
@@ -92,7 +93,7 @@ public class WebLogicDeployerParameters {
 			String deploymentName, boolean isLibrary, String deploymentTargets,
 			WeblogicEnvironment environment, String artifactName, String source,
 			WebLogicCommand command, boolean silentMode,String javaOpts, String classpath,
-			WebLogicStageMode stageMode) {
+			WebLogicStageMode stageMode, String deploymentPlan) {
 		super();
 		this.build = build;
 		this.launcher = launcher;
@@ -109,6 +110,7 @@ public class WebLogicDeployerParameters {
 		this.javaOpts = javaOpts;
 		this.classpath = classpath;
 		this.stageMode = stageMode;
+		this.deploymentPlan = deploymentPlan;
 	}
 
 	/**
@@ -321,4 +323,11 @@ public class WebLogicDeployerParameters {
 		this.stageMode = stageMode;
 	}
 	
+	public String getDeploymentPlan() {
+		return deploymentPlan;
+	}
+
+	public void setDeploymentPlan(String deploymentPlan) {
+		this.deploymentPlan = deploymentPlan;
+	}
 }
