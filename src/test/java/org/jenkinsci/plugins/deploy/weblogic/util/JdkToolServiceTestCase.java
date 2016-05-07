@@ -26,6 +26,6 @@ public class JdkToolServiceTestCase {
 			Assert.fail("pattern didn't matched.");
 		}
 		
-//		System.out.println("[HudsonWeblogicDeploymentPlugin] - Displaying a warning about jdk version compatibility with Weblogic Deployer API {"+matcher.group(3)+"}");			
+//		System.out.println("[HudsonWeblogicDeploymentPlugin] - Displaying a warning about JDK version compatibility with WebLogic Deployer API {"+matcher.group(3)+"}");			
 	}
 }

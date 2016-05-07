@@ -105,7 +105,7 @@ public static final String EXTERNAL_ENV_JDK = "environment";
 			Pattern pattern = Pattern.compile(JAVA_VERSION_COMMAND_VERSION_LINE_REGEX);
 			Matcher matcher = pattern.matcher(out.toString());
 			if(matcher.matches()){
-				logger.println("[WeblogicDeploymentPlugin] - Pay attention of Jdk version {selected version is "+matcher.group(3)+"} compatibility with Weblogic Deployer API (see Oracle documentation).");
+				logger.println("[WeblogicDeploymentPlugin] - Pay attention to JDK version {selected version is "+matcher.group(3)+"} compatibility with WebLogic Deployer API (see Oracle documentation).");
 			}
 			
 		} catch (IOException e) {
