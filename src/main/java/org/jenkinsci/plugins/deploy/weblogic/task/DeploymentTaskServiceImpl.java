@@ -8,18 +8,15 @@ import hudson.Extension;
 import hudson.FilePath;
 import hudson.Launcher;
 import hudson.Proc;
-import hudson.maven.AbstractMavenProject;
-import hudson.model.BuildListener;
 import hudson.model.AbstractBuild;
 import hudson.model.AbstractProject;
-import hudson.model.FreeStyleProject;
+import hudson.model.BuildListener;
 import hudson.model.JDK;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -28,15 +25,14 @@ import org.apache.commons.lang.BooleanUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jenkinsci.plugins.deploy.weblogic.ArtifactSelector;
 import org.jenkinsci.plugins.deploy.weblogic.FreeStyleJobArtifactSelectorImpl;
-import org.jenkinsci.plugins.deploy.weblogic.MavenJobArtifactSelectorImpl;
-import org.jenkinsci.plugins.deploy.weblogic.WeblogicDeploymentPluginLog;
 import org.jenkinsci.plugins.deploy.weblogic.WeblogicDeploymentPlugin.WeblogicDeploymentPluginDescriptor;
+import org.jenkinsci.plugins.deploy.weblogic.WeblogicDeploymentPluginLog;
+import org.jenkinsci.plugins.deploy.weblogic.data.DeploymentTask;
 import org.jenkinsci.plugins.deploy.weblogic.data.DeploymentTaskResult;
 import org.jenkinsci.plugins.deploy.weblogic.data.TransfertConfiguration;
 import org.jenkinsci.plugins.deploy.weblogic.data.WebLogicDeploymentStatus;
 import org.jenkinsci.plugins.deploy.weblogic.data.WebLogicPreRequisteStatus;
 import org.jenkinsci.plugins.deploy.weblogic.data.WeblogicEnvironment;
-import org.jenkinsci.plugins.deploy.weblogic.data.DeploymentTask;
 import org.jenkinsci.plugins.deploy.weblogic.deployer.WebLogicCommand;
 import org.jenkinsci.plugins.deploy.weblogic.deployer.WebLogicDeployer;
 import org.jenkinsci.plugins.deploy.weblogic.deployer.WebLogicDeployerParameters;
@@ -46,8 +42,8 @@ import org.jenkinsci.plugins.deploy.weblogic.exception.RequiredJDKNotFoundExcept
 import org.jenkinsci.plugins.deploy.weblogic.jdk.JdkToolService;
 import org.jenkinsci.plugins.deploy.weblogic.properties.WebLogicDeploymentPluginConstantes;
 import org.jenkinsci.plugins.deploy.weblogic.util.FTPUtils;
-import org.jenkinsci.plugins.deploy.weblogic.util.VarUtils;
 import org.jenkinsci.plugins.deploy.weblogic.util.ParameterValueResolver;
+import org.jenkinsci.plugins.deploy.weblogic.util.VarUtils;
 
 import com.google.inject.Inject;
 
@@ -137,9 +133,10 @@ public class DeploymentTaskServiceImpl implements DeploymentTaskService {
 			fullArtifactFinalName = selectedArtifact.getName();
 		} catch (Throwable e) {
 			e.printStackTrace(listener.getLogger());
-            listener.error("[WeblogicDeploymentPlugin] - Failed to get artifact from archive directory : " + e.getMessage());
-            IOUtils.closeQuietly(deploymentLogOut);
+            listener.error("[WeblogicDeploymentPlugin] - Failed to get artifact from archive directory.");
             throw new DeploymentTaskException(new DeploymentTaskResult(WebLogicPreRequisteStatus.OK, WebLogicDeploymentStatus.ABORTED, convertParameters(task, envVars), null));
+        } finally {
+            IOUtils.closeQuietly(deploymentLogOut);
         }
 		
 		//Deploiement
@@ -162,7 +159,7 @@ public class DeploymentTaskServiceImpl implements DeploymentTaskService {
 				listener.error("[WeblogicDeploymentPlugin] - WebLogic environment Name " +task.getWeblogicEnvironmentTargetedName()+ " not found in the list. Please check the configuration file.");
 				throw new DeploymentTaskException(new DeploymentTaskResult(WebLogicPreRequisteStatus.OK, WebLogicDeploymentStatus.ABORTED, convertParameters(task, envVars), fullArtifactFinalName));
 			}
-			listener.getLogger().println("[WeblogicDeploymentPlugin] - Deploying the artifact on the following target : (name="+task.getWeblogicEnvironmentTargetedName()+") (host=" + weblogicEnvironmentTargeted.getHost() + ") (port=" +weblogicEnvironmentTargeted.getPort()+ ")");
+			listener.getLogger().println("[WeblogicDeploymentPlugin] - Deploying the artifact to the following target : (name="+task.getWeblogicEnvironmentTargetedName()+") (host=" + weblogicEnvironmentTargeted.getHost() + ") (port=" +weblogicEnvironmentTargeted.getPort()+ ")");
 			
 			
 			if(StringUtils.isBlank(task.getCommandLine())){

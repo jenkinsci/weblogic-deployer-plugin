@@ -1,4 +1,4 @@
 <div>
-  This plugin allows you to deploy an artifact (jar, ear, war) to any weblogic target (admin server, managed server, cluster...)
+  This plugin allows you to deploy an artifact (JAR, EAR, WAR) to any WebLogic target (admin server, managed server, cluster...)
   after a successful build.
 </div>

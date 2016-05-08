@@ -5,11 +5,10 @@ package org.jenkinsci.plugins.deploy.weblogic;
 
 import hudson.EnvVars;
 import hudson.FilePath;
-import hudson.model.BuildListener;
 import hudson.model.AbstractBuild;
+import hudson.model.BuildListener;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,9 +17,7 @@ import java.util.regex.Pattern;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.*;
 import org.apache.commons.lang.StringUtils;
-import org.jenkinsci.plugins.deploy.weblogic.util.ParameterValueResolver;
 import org.jenkinsci.plugins.deploy.weblogic.util.VarUtils;
 
 /**
@@ -76,7 +73,7 @@ public class FreeStyleJobArtifactSelectorImpl implements ArtifactSelector {
         }
         
         if(artifactsRecorded.size() < 1){
-        	throw new RuntimeException("[WeblogicDeploymentPlugin] - No artifact to deploy ["+filteredResource+"] found.");
+        	throw new RuntimeException("No artifact to deploy ["+filteredResource+"] found.");
         }
         
         if(artifactsRecorded.size() > 1){
