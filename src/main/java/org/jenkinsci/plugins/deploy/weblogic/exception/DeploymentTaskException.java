@@ -52,7 +52,7 @@ public class DeploymentTaskException extends RuntimeException {
 	
 	/**
 	 * 
-	 * @param message
+	 * @param result
 	 */
 	public DeploymentTaskException(DeploymentTaskResult result) {
 		super();

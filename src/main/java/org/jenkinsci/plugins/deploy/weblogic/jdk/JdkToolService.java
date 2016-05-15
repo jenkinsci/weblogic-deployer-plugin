@@ -4,9 +4,8 @@
 package org.jenkinsci.plugins.deploy.weblogic.jdk;
 
 import hudson.Launcher;
-import hudson.model.TaskListener;
-import hudson.model.Hudson;
 import hudson.model.JDK;
+import hudson.model.TaskListener;
 import hudson.util.StreamTaskListener;
 
 import java.io.ByteArrayOutputStream;
@@ -93,7 +92,7 @@ public static final String EXTERNAL_ENV_JDK = "environment";
 		try {
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			TaskListener listener = new StreamTaskListener(out);
-			Launcher launcher = Hudson.getInstance().createLauncher(listener);
+			Launcher launcher = Jenkins.getInstance().createLauncher(listener);
 			String cmd = jdk.getBinDir().getAbsolutePath().concat("/java");
 			int result = launcher.launch().cmds(cmd,"-version").stdout(out).join();
 //			L'executable n'existe pas
@@ -105,7 +104,7 @@ public static final String EXTERNAL_ENV_JDK = "environment";
 			Pattern pattern = Pattern.compile(JAVA_VERSION_COMMAND_VERSION_LINE_REGEX);
 			Matcher matcher = pattern.matcher(out.toString());
 			if(matcher.matches()){
-				logger.println("[WeblogicDeploymentPlugin] - Pay attention of Jdk version {selected version is "+matcher.group(3)+"} compatibility with Weblogic Deployer API (see Oracle documentation).");
+				logger.println("[WeblogicDeploymentPlugin] - Pay attention to JDK version {selected version is "+matcher.group(3)+"} compatibility with WebLogic Deployer API (see Oracle documentation).");
 			}
 			
 		} catch (IOException e) {

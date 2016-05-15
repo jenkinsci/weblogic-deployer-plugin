@@ -59,7 +59,7 @@ public class MavenJobArtifactSelectorImpl implements ArtifactSelector {
         }
         
         if(artifactsRecorded.size() < 1){
-        	throw new RuntimeException("[WeblogicDeploymentPlugin] - No artifact to deploy ["+patternToUse+"] found.");
+        	throw new RuntimeException("No artifact to deploy ["+patternToUse+"] found.");
         }
         
         if(artifactsRecorded.size() > 1){

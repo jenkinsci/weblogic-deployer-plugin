@@ -35,15 +35,7 @@
 	          	</f:repeatable>
 				</f:entry>
 			</f:nested>
-			
-			<f:entry title="${%MustExitOnFailure}" field="mustExitOnFailure">
-		  		<f:checkbox name="mustExitOnFailure" checked="${instance.mustExitOnFailure}" />
-		  	</f:entry>
-			
-			<f:entry title="${%ForceStopOnFirstFailure}" field="forceStopOnFirstFailure">
-		  		<f:checkbox name="forceStopOnFirstFailure" checked="${instance.forceStopOnFirstFailure}" />
-		  	</f:entry>
-			
+
 		  	<f:entry title="${%DeploymentStrategy}" field="selectedDeploymentStrategyIds">
 		  		<select class="setting-input" multiple="multiple" size="3" name="selectedDeploymentStrategyIds">    		
 					<!-- valeur par defaut -->
@@ -56,17 +48,26 @@
 		    		<f:option value="hudson.model.Cause\\$UpstreamCause" selected="${instance.selectedDeploymentStrategyIds.contains('hudson.model.Cause\\$UpstreamCause')}">${%Cause.UpstreamCause}</f:option>
 		    		<f:option value="org.jenkinsci.plugins.deploy.weblogic.trigger.DeploymentTrigger\\$DeploymentTriggerCause" selected="${instance.selectedDeploymentStrategyIds.contains('org.jenkinsci.plugins.deploy.weblogic.trigger.DeploymentTrigger\\$DeploymentTriggerCause')}">${%Cause.DeploymentTriggerCause}</f:option>
 		    		<f:option value="hudson.triggers.SCMTrigger\\$SCMTriggerCause" selected="${instance.selectedDeploymentStrategyIds.contains('hudson.triggers.SCMTrigger\\$SCMTriggerCause')}">${%Cause.SCMTriggerCause}</f:option>
+					<f:option value="hudson.triggers.TimerTrigger\\$TimerTriggerCause" selected="${instance.selectedDeploymentStrategyIds.contains('hudson.triggers.TimerTrigger\\$TimerTriggerCause')}">${%Cause.TimerTriggerCause}</f:option>
 				</select>
 			</f:entry>
-			
-			<f:entry title="${%SourceManagementDeploymentCriteria}" field="isDeployingOnlyWhenUpdates">
-		  		<f:checkbox name="isDeployingOnlyWhenUpdates" checked="${instance.isDeployingOnlyWhenUpdatese}" />
+
+			<f:entry title="" field="mustExitOnFailure">
+		  		<f:checkbox name="mustExitOnFailure" checked="${instance.mustExitOnFailure}" title="${%MustExitOnFailure}" />
 		  	</f:entry>
-			
+
+			<f:entry title="" field="forceStopOnFirstFailure">
+		  		<f:checkbox name="forceStopOnFirstFailure" checked="${instance.forceStopOnFirstFailure}" title="${%ForceStopOnFirstFailure}" />
+		  	</f:entry>
+
+			<f:entry title="" field="isDeployingOnlyWhenUpdates">
+		  		<f:checkbox name="isDeployingOnlyWhenUpdates" checked="${instance.isDeployingOnlyWhenUpdatese}" title="${%SourceManagementDeploymentCriteria}" />
+		  	</f:entry>
+
 			<f:entry title="${%DeployedProjectsDependencies}" description="${%DeployedProjectsDependenciesDescription}" field="deployedProjectsDependencies">
 				<f:textbox/>
 			</f:entry>
-			
+
 		</j:when>
 		<j:otherwise>
 			<!-- no configuration. this will be an error, so warn the user now -->

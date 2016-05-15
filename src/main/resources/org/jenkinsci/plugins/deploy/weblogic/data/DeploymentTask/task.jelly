@@ -1,48 +1,35 @@
 <?jelly escape-by-default='true'?>
 <j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:p="/lib/hudson/project" xmlns:util="jelly:util">
 
-	<f:entry title="${%title.task.name}" field="taskName">
-		<f:textbox value="${it.taskName}"/>
-	</f:entry>
-	
-	<f:entry title="${%Environment}" field="weblogicEnvironmentTargetedName">
-		<select  class="setting-input" name="weblogicEnvironmentTargetedName">
-	       	<j:forEach var="inst" items="${descriptor.weblogicEnvironments}">
-	           	<f:option selected="${inst.name == it.weblogicEnvironmentTargetedName}" value="${inst.name}">${inst.name} (${inst.host}:${inst.port})</f:option>
-	        </j:forEach>
-		</select>
-	</f:entry>
-	
-	<f:entry title="${%Name}" field="deploymentName">
-		<f:textbox value="${it.deploymentName}"/>
-	</f:entry>
-		  	
-    <!-- En fonction du type de projet on ne saisit que le nom ou aussi le repertoire ou se produit la generation -->
-	<f:entry title="${%BaseResourcesGeneratedDirectory}" field="baseResourcesGeneratedDirectory">
-	    <f:textbox value="${it.baseResourcesGeneratedDirectory}"/>
-	</f:entry>
 	<f:entry title="${%RegexBuiltResourceToDeploy}" field="builtResourceRegexToDeploy">
 		<f:textbox value="${it.builtResourceRegexToDeploy}"/>
 	</f:entry>
-	<f:entry title="${%DeploymentTargets}" field="deploymentTargets">
-		<f:textbox default="AdminServer" value="${it.deploymentTargets}"/>
+	<f:entry title="" field="isLibrary">
+		<f:checkbox name="isLibrary" checked="${it.isLibrary}" title="${%WeblogicLibrary}" />
 	</f:entry>
-	<f:entry title="${%DeploymentPlan}" field="deploymentPlan">
-		<f:textbox value="${it.deploymentPlan}"/>
-	</f:entry>
-	<f:entry title="${%WeblogicLibrary}" field="isLibrary">
-		<f:checkbox name="isLibrary" checked="${it.isLibrary}" />
-	</f:entry>
-	
-	
+
     <f:advanced>
+		<f:entry title="${%title.task.name}" field="taskName">
+			<f:textbox value="${it.taskName}"/>
+		</f:entry>
+		<f:entry title="${%Environment}" field="weblogicEnvironmentTargetedName">
+			<select  class="setting-input" name="weblogicEnvironmentTargetedName">
+		       	<j:forEach var="inst" items="${descriptor.weblogicEnvironments}">
+		           	<f:option selected="${inst.name == it.weblogicEnvironmentTargetedName}" value="${inst.name}">${inst.name} (${inst.host}:${inst.port})</f:option>
+		        </j:forEach>
+			</select>
+		</f:entry>
+		<!-- En fonction du type de projet on ne saisit que le nom ou aussi le repertoire ou se produit la generation -->
+		<f:entry title="${%BaseResourcesGeneratedDirectory}" field="baseResourcesGeneratedDirectory">
+			<f:textbox value="${it.baseResourcesGeneratedDirectory}"/>
+		</f:entry>
     	<f:entry title="JDK">
 			<f:entry title="${%jdk.name}" field="jdkName">
-				<f:textbox value="${it.jdk.name}" default="${descriptor.jdkSelected}" 
+				<f:textbox value="${it.jdk.name}" default="${descriptor.jdkSelected}"
 				onFocus="this.onChange();"
 				onChange="completeJdkhome(this.value, 'jdkHome-${it.id}');"
-				onKeyPress="this.onchange();" 
-				onPaste="this.onchange();" 
+				onKeyPress="this.onchange();"
+				onPaste="this.onchange();"
 				onInput="this.onchange();"
 				 />
 			</f:entry>
@@ -51,6 +38,15 @@
 			</f:entry>
 		</f:entry>
 		<f:entry title="${%wl.configuration}">
+			<f:entry title="${%Name}" field="deploymentName">
+				<f:textbox value="${it.deploymentName}"/>
+			</f:entry>
+			<f:entry title="${%DeploymentPlan}" field="deploymentPlan">
+				<f:textbox value="${it.deploymentPlan}"/>
+			</f:entry>
+			<f:entry title="${%DeploymentTargets}" field="deploymentTargets">
+				<f:textbox default="AdminServer" value="${it.deploymentTargets}"/>
+			</f:entry>
 			<f:entry title="${%wl.configuration.stage.mode}" field="stageMode">
 				<select  class="setting-input" name="stageMode">
 				   	<j:forEach var="inst" items="${descriptor.weblogicStageModes}">

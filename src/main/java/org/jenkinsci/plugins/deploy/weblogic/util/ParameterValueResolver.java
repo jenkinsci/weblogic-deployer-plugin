@@ -3,8 +3,6 @@
  */
 package org.jenkinsci.plugins.deploy.weblogic.util;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 

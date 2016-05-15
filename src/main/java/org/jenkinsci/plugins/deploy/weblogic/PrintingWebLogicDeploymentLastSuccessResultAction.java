@@ -16,7 +16,7 @@ public class PrintingWebLogicDeploymentLastSuccessResultAction implements Action
 
 	private WebLogicDeployment lastDeploymentSucessfull;
 	
-	private static transient final String iconFileName = WebLogicDeploymentPluginConstantes.PLUGIN_RESOURCES_PATH + "/icons/48x48/BEA.png";
+	private static transient final String lastSuccessIconFileName = WebLogicDeploymentPluginConstantes.PLUGIN_RESOURCES_PATH + "/icons/48x48/BEA.png";
 	
 	
 	/**
@@ -59,7 +59,7 @@ public class PrintingWebLogicDeploymentLastSuccessResultAction implements Action
 	 * @see hudson.model.Action#getIconFileName()
 	 */
 	public String getIconFileName() {
-		return iconFileName;
+		return null;
 	}
 
 	/*
@@ -86,4 +86,7 @@ public class PrintingWebLogicDeploymentLastSuccessResultAction implements Action
 		return lastDeploymentSucessfull != null;
 	}
 
+    public String getLastSuccessIconFileName() {
+        return lastSuccessIconFileName;
+    }
 }
